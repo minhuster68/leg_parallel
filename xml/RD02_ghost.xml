@@ -1,0 +1,3 @@
+<mujoco model="RD02_ghost">
+    <include file="RD02.xml"/>
+</mujoco>

@@ -1,0 +1,847 @@
+<?xml version="1.0"?>
+<robot name="RD02">
+  <link name="pelvis_link">
+    <inertial>
+      <origin xyz="9.1e-05 7.5e-05 0.023559" rpy="0 0 0"/>
+      <mass value="4.793"/>
+      <inertia ixx="0.01883" ixy="-2.1e-05" ixz="-5e-06" iyy="0.015359" iyz="3e-05" izz="0.010584"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://vd_robot_description/robots/RD02/meshes/pelvis_link.STL"/>
+      </geometry>
+      <material name="">
+        <color rgba="0.752941176470588 0.752941176470588 0.752941176470588 1"/>
+      </material>
+    </visual>
+      <collision>
+      <origin xyz="0 0 0.03" rpy="0 0 0" />
+      <geometry>
+        <sphere radius="0.075" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="bottom_camera">
+    <mujoco_camera fovy="58.29" xyaxes="1 0 0  0 1 0" resolution="64 36" />
+  </link>
+  <joint name="bottom_camera_joint" type="fixed">
+    <parent link="pelvis_link" />
+    <child link="bottom_camera" />
+    <origin xyz="0.0175 0.0 -0.06885" rpy="3.14159265 0 0" />
+  </joint>
+  <link name="imu_link"/>
+  <joint name="imu_joint" type="fixed">
+    <origin xyz="-0.00123 0.0 -0.0415" rpy="0.0 0.0 0.0"/>
+    <parent link="pelvis_link"/>
+    <child link="imu_link"/>
+  </joint>
+  <link name="left_hip_pitch_link">
+    <inertial>
+      <origin xyz="0.007562 0.05441 -0.018975" rpy="0 0 0"/>
+      <mass value="1.534"/>
+      <inertia ixx="0.001715" ixy="1.8e-05" ixz="1e-06" iyy="0.001573" iyz="-7.7e-05" izz="0.001596"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://vd_robot_description/robots/RD02/meshes/left_hip_pitch_link.STL"/>
+      </geometry>
+      <material name="">
+        <color rgba="0.752941176470588 0.752941176470588 0.752941176470588 1"/>
+      </material>
+    </visual>
+      <collision>
+      <origin xyz="0 0.062 -0.01" rpy="0 0 0" />
+      <geometry>
+        <cylinder radius="0.045" length="0.0115" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="left_hip_pitch_joint" type="revolute">
+    <origin xyz="0 0.0682 0" rpy="0 0 0"/>
+    <parent link="pelvis_link"/>
+    <child link="left_hip_pitch_link"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-2.36" upper="2.44" effort="120" velocity="20.5" armature="0.025101925" friction="0.0"/>
+  </joint>
+  <link name="left_hip_roll_link">
+    <inertial>
+      <origin xyz="0.000229 0.00021 -0.099469" rpy="0 0 0"/>
+      <mass value="1.687"/>
+      <inertia ixx="0.003745" ixy="0" ixz="-1.9e-05" iyy="0.0041" iyz="1.1e-05" izz="0.002195"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://vd_robot_description/robots/RD02/meshes/left_hip_roll_link.STL"/>
+      </geometry>
+      <material name="">
+        <color rgba="0.752941176470588 0.752941176470588 0.752941176470588 1"/>
+      </material>
+    </visual>
+      <!-- <collision>
+      <origin xyz="0.002 0.0 -0.07045" rpy="0.0 0.0 0.0" />
+      <geometry>
+        <cylinder radius="0.0451" length="0.0959" />
+      </geometry>
+    </collision> -->
+  </link>
+  <joint name="left_hip_roll_joint" type="revolute">
+    <origin xyz="0.004 0.0568 -0.02" rpy="0 0 0"/>
+    <parent link="left_hip_pitch_link"/>
+    <child link="left_hip_roll_link"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="-0.44" upper="3.14" effort="120" velocity="20.5" armature="0.025101925" friction="0.0"/>
+  </joint>
+  <link name="left_hip_yaw_link">
+    <inertial>
+      <origin xyz="-0.006086 -0.003639 -0.140383" rpy="0 0 0"/>
+      <mass value="1.894"/>
+      <inertia ixx="0.008603" ixy="1.6e-05" ixz="0.000577" iyy="0.008714" iyz="0.000206" izz="0.002021"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://vd_robot_description/robots/RD02/meshes/left_hip_yaw_link.STL"/>
+      </geometry>
+      <material name="">
+        <color rgba="0.752941176470588 0.752941176470588 0.752941176470588 1"/>
+      </material>
+    </visual>
+      <collision>
+      <origin xyz="0.0 0.0 -0.0124" rpy="0.0 0.0 0.0" />
+      <geometry>
+        <cylinder radius="0.0446" length="0.1133" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="left_hip_yaw_joint" type="revolute">
+    <origin xyz="0 0 -0.1458" rpy="0 0 0"/>
+    <parent link="left_hip_roll_link"/>
+    <child link="left_hip_yaw_link"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="-2.58" upper="2.58" effort="75" velocity="32.4" armature="0.010177520" friction="0.0"/>
+  </joint>
+  <link name="left_knee_link">
+    <inertial>
+      <origin xyz="0.009182 -0.001385 -0.141761" rpy="0 0 0"/>
+      <mass value="2.197"/>
+      <inertia ixx="0.017173" ixy="-1.1e-05" ixz="-0.001016" iyy="0.01685" iyz="-0.000126" izz="0.002315"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://vd_robot_description/robots/RD02/meshes/left_knee_link.STL"/>
+      </geometry>
+      <material name="">
+        <color rgba="0.752941176470588 0.752941176470588 0.752941176470588 1"/>
+      </material>
+    </visual>
+      <collision>
+      <origin xyz="0.0125 0.0 -0.145" rpy="0.0 0.0 0.0" />
+      <geometry>
+        <cylinder radius="0.0404" length="0.1979" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="left_knee_joint" type="revolute">
+    <origin xyz="-0.01 0 -0.175" rpy="0 0 0"/>
+    <parent link="left_hip_yaw_link"/>
+    <child link="left_knee_link"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-0.09" upper="2.62" effort="120" velocity="20.5" armature="0.025101925" friction="0.0"/>
+  </joint>
+  <link name="left_ankle_pitch_link">
+    <inertial>
+      <origin xyz="-0.000208 0 -0.0130796491709" rpy="0 0 0"/>
+      <mass value="0.066"/>
+      <inertia ixx="1.2e-05" ixy="0" ixz="0" iyy="1.4e-05" iyz="0" izz="5e-06"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://vd_robot_description/robots/RD02/meshes/left_ankle_pitch_link.STL"/>
+      </geometry>
+      <material name="">
+        <color rgba="0.752941176470588 0.752941176470588 0.752941176470588 1"/>
+      </material>
+    </visual>
+  </link>
+  <joint name="left_ankle_pitch_joint" type="revolute">
+    <origin xyz="0.01 0 -0.315" rpy="0 0 0"/>
+    <parent link="left_knee_link"/>
+    <child link="left_ankle_pitch_link"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-0.785" upper="0.43" effort="50" velocity="37" armature="0.007219450" friction="0.0"/>
+  </joint>
+  <link name="left_ankle_roll_link">
+    <inertial>
+      <origin xyz="0.0317456429766 1.8e-05 -0.0162685446523" rpy="0 0 0"/>
+      <mass value="0.677"/>
+      <inertia ixx="0.000334" ixy="0" ixz="-6.9e-05" iyy="0.001715" iyz="0" izz="0.001785"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://vd_robot_description/robots/RD02/meshes/left_ankle_roll_link.STL"/>
+      </geometry>
+      <material name="">
+        <color rgba="0.752941176470588 0.752941176470588 0.752941176470588 1"/>
+      </material>
+    </visual>
+      <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://vd_robot_description/robots/RD02/meshes/left_ankle_roll_link.STL" scale="1 1 1"/>
+      </geometry>
+    </collision>
+    <collision>
+      <origin xyz="0.03787 0 -0.02675" rpy="0 0 0" />
+      <geometry>
+        <box size="0.1476 0.0562 0.0185" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="left_ankle_roll_joint" type="revolute">
+    <origin xyz="0 0 -0.025" rpy="0 0 0"/>
+    <parent link="left_ankle_pitch_link"/>
+    <child link="left_ankle_roll_link"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="-0.26" upper="0.26" effort="50" velocity="37" armature="0.007219450" friction="0.0"/>
+  </joint>
+  <link name="right_hip_pitch_link">
+    <inertial>
+      <origin xyz="0.007632 -0.054399 -0.018976" rpy="0 0 0"/>
+      <mass value="1.534"/>
+      <inertia ixx="0.001715" ixy="-1.8e-05" ixz="1e-06" iyy="0.001573" iyz="7.8e-05" izz="0.001596"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://vd_robot_description/robots/RD02/meshes/right_hip_pitch_link.STL"/>
+      </geometry>
+      <material name="">
+        <color rgba="0.752941176470588 0.752941176470588 0.752941176470588 1"/>
+      </material>
+    </visual>
+      <collision>
+      <origin xyz="0 -0.062 -0.01" rpy="0 0 0" />
+      <geometry>
+        <cylinder radius="0.045" length="0.0115" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="right_hip_pitch_joint" type="revolute">
+    <origin xyz="0 -0.0682 0" rpy="0 0 0"/>
+    <parent link="pelvis_link"/>
+    <child link="right_hip_pitch_link"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-2.36" upper="2.44" effort="120" velocity="20.5" armature="0.025101925" friction="0.0"/>
+  </joint>
+  <link name="right_hip_roll_link">
+    <inertial>
+      <origin xyz="-0.00035 -0.000175 -0.099201" rpy="0 0 0"/>
+      <mass value="1.687"/>
+      <inertia ixx="0.003795" ixy="2e-06" ixz="-1.2e-05" iyy="0.004155" iyz="-4e-06" izz="0.002202"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://vd_robot_description/robots/RD02/meshes/right_hip_roll_link.STL"/>
+      </geometry>
+      <material name="">
+        <color rgba="0.752941176470588 0.752941176470588 0.752941176470588 1"/>
+      </material>
+    </visual>
+      <!-- <collision>
+      <origin xyz="0.002 0.0 -0.07045" rpy="0.0 0.0 0.0" />
+      <geometry>
+        <cylinder radius="0.0451" length="0.0959" />
+      </geometry>
+    </collision> -->
+  </link>
+  <joint name="right_hip_roll_joint" type="revolute">
+    <origin xyz="0.004 -0.0568 -0.02" rpy="0 0 0"/>
+    <parent link="right_hip_pitch_link"/>
+    <child link="right_hip_roll_link"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="-3.14" upper="0.44" effort="120" velocity="20.5" armature="0.025101925" friction="0.0"/>
+  </joint>
+  <link name="right_hip_yaw_link">
+    <inertial>
+      <origin xyz="-0.006095 0.003644 -0.140383" rpy="0 0 0"/>
+      <mass value="1.894"/>
+      <inertia ixx="0.008603" ixy="-1.6e-05" ixz="0.000578" iyy="0.008714" iyz="-0.000205" izz="0.002022"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://vd_robot_description/robots/RD02/meshes/right_hip_yaw_link.STL"/>
+      </geometry>
+      <material name="">
+        <color rgba="0.752941176470588 0.752941176470588 0.752941176470588 1"/>
+      </material>
+    </visual>
+      <collision>
+      <origin xyz="0.0 0.0 -0.0124" rpy="0.0 0.0 0.0" />
+      <geometry>
+        <cylinder radius="0.0446" length="0.1133" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="right_hip_yaw_joint" type="revolute">
+    <origin xyz="0 0 -0.1458" rpy="0 0 0"/>
+    <parent link="right_hip_roll_link"/>
+    <child link="right_hip_yaw_link"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="-2.58" upper="2.58" effort="75" velocity="32.4" armature="0.010177520" friction="0.0"/>
+  </joint>
+  <link name="right_knee_link">
+    <inertial>
+      <origin xyz="0.009415 0.000971 -0.140809" rpy="0 0 0"/>
+      <mass value="2.197"/>
+      <inertia ixx="0.016821" ixy="-1.9e-05" ixz="-0.00104" iyy="0.016545" iyz="0.00025" izz="0.002342"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://vd_robot_description/robots/RD02/meshes/right_knee_link.STL"/>
+      </geometry>
+      <material name="">
+        <color rgba="0.752941176470588 0.752941176470588 0.752941176470588 1"/>
+      </material>
+    </visual>
+      <collision>
+      <origin xyz="0.0125 0.0 -0.145" rpy="0.0 0.0 0.0" />
+      <geometry>
+        <cylinder radius="0.0404" length="0.1979" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="right_knee_joint" type="revolute">
+    <origin xyz="-0.01 0 -0.175" rpy="0 0 0"/>
+    <parent link="right_hip_yaw_link"/>
+    <child link="right_knee_link"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-0.09" upper="2.62" effort="120" velocity="20.5" armature="0.025101925" friction="0.0"/>
+  </joint>
+  <link name="right_ankle_pitch_link">
+    <inertial>
+      <origin xyz="-0.000208 0 -0.0130796490263" rpy="0 0 0"/>
+      <mass value="0.066"/>
+      <inertia ixx="1.2e-05" ixy="0" ixz="0" iyy="1.4e-05" iyz="0" izz="5e-06"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://vd_robot_description/robots/RD02/meshes/right_ankle_pitch_link.STL"/>
+      </geometry>
+      <material name="">
+        <color rgba="0.752941176470588 0.752941176470588 0.752941176470588 1"/>
+      </material>
+    </visual>
+  </link>
+  <joint name="right_ankle_pitch_joint" type="revolute">
+    <origin xyz="0.01 0 -0.315" rpy="0 0 0"/>
+    <parent link="right_knee_link"/>
+    <child link="right_ankle_pitch_link"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-0.785" upper="0.43" effort="50" velocity="37" armature="0.007219450" friction="0.0"/>
+  </joint>
+  <link name="right_ankle_roll_link">
+    <inertial>
+      <origin xyz="0.0317455785546 1.5e-05 -0.016268545904" rpy="0 0 0"/>
+      <mass value="0.677"/>
+      <inertia ixx="0.000334" ixy="0" ixz="-6.9e-05" iyy="0.001715" iyz="0" izz="0.001785"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://vd_robot_description/robots/RD02/meshes/right_ankle_roll_link.STL"/>
+      </geometry>
+      <material name="">
+        <color rgba="0.752941176470588 0.752941176470588 0.752941176470588 1"/>
+      </material>
+    </visual>
+      <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://vd_robot_description/robots/RD02/meshes/right_ankle_roll_link.STL" scale="1 1 1"/>
+      </geometry>
+    </collision>
+    <collision>
+      <origin xyz="0.03787 0 -0.02675" rpy="0 0 0" />
+      <geometry>
+        <box size="0.1476 0.0562 0.0185" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="right_ankle_roll_joint" type="revolute">
+    <origin xyz="0 0 -0.025" rpy="0 0 0"/>
+    <parent link="right_ankle_pitch_link"/>
+    <child link="right_ankle_roll_link"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="-0.26" upper="0.26" effort="50" velocity="37" armature="0.007219450" friction="0.0"/>
+  </joint>
+  <link name="torso_link">
+    <inertial>
+      <origin xyz="-0.010066 0.00071 0.217964" rpy="0 0 0"/>
+      <mass value="10.45"/>
+      <inertia ixx="0.140157" ixy="0.00025" ixz="0.003663" iyy="0.126969" iyz="0.000189" izz="0.077593"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://vd_robot_description/robots/RD02/meshes/torso_link.STL"/>
+      </geometry>
+      <material name="">
+        <color rgba="0.752941176470588 0.752941176470588 0.752941176470588 1"/>
+      </material>
+    </visual>
+      <collision>
+      <origin xyz="-0.015 0 0.28" rpy="1.5708 0 0" />
+      <geometry>
+        <cylinder radius="0.09" length="0.10" />
+      </geometry>
+    </collision>
+    <collision>
+      <origin xyz="-0.015 0 0.13" rpy="1.5708 0 0" />
+      <geometry>
+        <cylinder radius="0.075" length="0.07" />
+      </geometry>
+    </collision>
+    <collision>
+      <origin xyz="-0.015 0 0.08" rpy="1.5708 0 0" />
+      <geometry>
+        <cylinder radius="0.07" length="0.05" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="back_camera">
+    <mujoco_camera fovy="80" xyaxes="0 1 0  0 0 1" resolution="640 360" />
+  </link>
+  <joint name="back_camera_joint" type="fixed">
+    <parent link="torso_link" />
+    <child link="back_camera" />
+    <origin xyz="-0.092 0 0.08594" rpy="1.57079632679 0 -1.57079632679" />
+  </joint>
+  <joint name="waist_yaw_joint" type="revolute">
+    <origin xyz="0 0 0.1127" rpy="0 0 0"/>
+    <parent link="pelvis_link"/>
+    <child link="torso_link"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="-2.54" upper="2.54" effort="75" velocity="32.4" armature="0.010177520" friction="0.0"/>
+  </joint>
+  <link name="left_shoulder_pitch_link">
+    <inertial>
+      <origin xyz="0.000838 0.0329592433216 -0.00547745817807" rpy="0 0 0"/>
+      <mass value="0.2485"/>
+      <inertia ixx="0.000246" ixy="-6e-06" ixz="3e-06" iyy="0.000371" iyz="-4.1e-05" izz="0.000411"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://vd_robot_description/robots/RD02/meshes/left_shoulder_pitch_link.STL"/>
+      </geometry>
+      <material name="">
+        <color rgba="0.752941176470588 0.752941176470588 0.752941176470588 1"/>
+      </material>
+    </visual>
+      <!-- <collision>
+      <origin xyz="0.0 0.05125 -0.009997" rpy="0.0 0.0 0.0" />
+      <geometry>
+        <sphere radius="0.042" />
+      </geometry>
+    </collision> -->
+  </link>
+  <joint name="left_shoulder_pitch_joint" type="revolute">
+    <origin xyz="0 0.13 0.295" rpy="0 0 0"/>
+    <parent link="torso_link"/>
+    <child link="left_shoulder_pitch_link"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-2.59" upper="2.59" effort="25" velocity="37" armature="0.003609725" friction="0.0"/>
+  </joint>
+  <link name="left_shoulder_roll_link">
+    <inertial>
+      <origin xyz="0.00183 0.006128 -0.04863" rpy="0 0 0"/>
+      <mass value="1.305"/>
+      <inertia ixx="0.003805" ixy="-9e-06" ixz="7.4e-05" iyy="0.003766" iyz="-0.000354" izz="0.000805"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://vd_robot_description/robots/RD02/meshes/left_shoulder_roll_link.STL"/>
+      </geometry>
+      <material name="">
+        <color rgba="0.752941176470588 0.752941176470588 0.752941176470588 1"/>
+      </material>
+    </visual>
+  </link>
+  <joint name="left_shoulder_roll_joint" type="revolute">
+    <origin xyz="0.00015 0.053 -0.015" rpy="0 0 0"/>
+    <parent link="left_shoulder_pitch_link"/>
+    <child link="left_shoulder_roll_link"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="-0.52" upper="2.61" effort="25" velocity="37" armature="0.003609725" friction="0.0"/>
+  </joint>
+  <link name="left_shoulder_yaw_link">
+    <inertial>
+      <origin xyz="0.003197 -0.000223 -0.0224680225055" rpy="0 0 0"/>
+      <mass value="0.2235"/>
+      <inertia ixx="0.000344" ixy="0" ixz="-3.3e-05" iyy="0.000251" iyz="2e-06" izz="0.000277"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://vd_robot_description/robots/RD02/meshes/left_shoulder_yaw_link.STL"/>
+      </geometry>
+      <material name="">
+        <color rgba="0.752941176470588 0.752941176470588 0.752941176470588 1"/>
+      </material>
+    </visual>
+      <collision>
+      <origin xyz="0.006 0.0 0.05" rpy="0.0 0.0 0.0" />
+      <geometry>
+        <cylinder radius="0.0342" length="0.0392" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="left_shoulder_yaw_joint" type="revolute">
+    <origin xyz="-0.00015 0.012 -0.132" rpy="0 0 0"/>
+    <parent link="left_shoulder_roll_link"/>
+    <child link="left_shoulder_yaw_link"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="-2.71" upper="2.01" effort="25" velocity="37" armature="0.003609725" friction="0.0"/>
+  </joint>
+  <link name="left_elbow_link">
+    <inertial>
+      <origin xyz="0.034706 0.001807 -0.006199" rpy="0 0 0"/>
+      <mass value="1.196"/>
+      <inertia ixx="0.000686" ixy="-7e-05" ixz="-0.000231" iyy="0.002198" iyz="8e-06" izz="0.002172"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://vd_robot_description/robots/RD02/meshes/left_elbow_link.STL"/>
+      </geometry>
+      <material name="">
+        <color rgba="0.752941176470588 0.752941176470588 0.752941176470588 1"/>
+      </material>
+    </visual>
+      <collision>
+      <origin xyz="0.035392 0.0 -0.006" rpy="0.0 -1.57079632679 0.0" />
+      <geometry>
+        <cylinder radius="0.0318" length="0.0488" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="left_elbow_joint" type="revolute">
+    <origin xyz="0.012 -0.00015 -0.052" rpy="0 0 0"/>
+    <parent link="left_shoulder_yaw_link"/>
+    <child link="left_elbow_link"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-0.64" upper="1.84" effort="25" velocity="37" armature="0.003609725" friction="0.0"/>
+  </joint>
+  <link name="left_wrist_roll_link">
+    <inertial>
+      <origin xyz="0.0131696615754 0.00214417898818 -3.4e-05" rpy="0 0 0"/>
+      <mass value="0.1865"/>
+      <inertia ixx="0.000151" ixy="2e-06" ixz="0" iyy="0.000162" iyz="0" izz="0.000219"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://vd_robot_description/robots/RD02/meshes/left_wrist_roll_link.STL"/>
+      </geometry>
+      <material name="">
+        <color rgba="0.752941176470588 0.752941176470588 0.752941176470588 1"/>
+      </material>
+    </visual>
+  </link>
+  <joint name="left_wrist_roll_joint" type="revolute">
+    <origin xyz="0.103 0.00015 -0.012" rpy="0 0 0"/>
+    <parent link="left_elbow_link"/>
+    <child link="left_wrist_roll_link"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="-2.31" upper="2.31" effort="25" velocity="37" armature="0.003609725" friction="0.0"/>
+  </joint>
+  <link name="left_wrist_pitch_link">
+    <inertial>
+      <origin xyz="0.0255072647536 -0.000814 0.000812" rpy="0 0 0"/>
+      <mass value="0.733"/>
+      <inertia ixx="0.000277" ixy="1.4e-05" ixz="1.4e-05" iyy="0.000759" iyz="0" izz="0.000759"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://vd_robot_description/robots/RD02/meshes/left_wrist_pitch_link.STL"/>
+      </geometry>
+      <material name="">
+        <color rgba="0.752941176470588 0.752941176470588 0.752941176470588 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.0235 5e-05 0.0" rpy="0.0 -1.57079632679 0.0" />
+      <geometry>
+        <cylinder radius="0.0338" length="0.0447" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="left_wrist_pitch_joint" type="revolute">
+    <origin xyz="0.041 0 0" rpy="0 0 0"/>
+    <parent link="left_wrist_roll_link"/>
+    <child link="left_wrist_pitch_link"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-1.57" upper="1.57" effort="10" velocity="22" armature="0.0021812" friction="0.0"/>
+  </joint>
+  <link name="left_hand_link">
+    <inertial>
+      <origin xyz="0.045902 -0.000162 -0.000603" rpy="0 0 0"/>
+      <mass value="0.6"/>
+      <inertia ixx="0.000157" ixy="1e-06" ixz="4e-06" iyy="0.000353" iyz="0" izz="0.000311"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://vd_robot_description/robots/RD02/meshes/left_hand_link.STL"/>
+      </geometry>
+      <material name="">
+        <color rgba="0.752941176470588 0.752941176470588 0.752941176470588 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.0828 0.0 0.0" rpy="0 0 0" />
+      <geometry>
+        <sphere radius="0.0335" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="left_hand_joint" type="revolute">
+    <origin xyz="0.051 0 0" rpy="0 0 0"/>
+    <parent link="left_wrist_pitch_link"/>
+    <child link="left_hand_link"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="-1.57" upper="1.57" effort="10" velocity="22" armature="0.0021812" friction="0.0"/>
+  </joint>
+  <link name="right_shoulder_pitch_link">
+    <inertial>
+      <origin xyz="0.000753 -0.0329562077616 -0.005536" rpy="0 0 0"/>
+      <mass value="0.2485"/>
+      <inertia ixx="0.000245" ixy="6e-06" ixz="2e-06" iyy="0.00037" iyz="4.1e-05" izz="0.00041"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://vd_robot_description/robots/RD02/meshes/right_shoulder_pitch_link.STL"/>
+      </geometry>
+      <material name="">
+        <color rgba="0.752941176470588 0.752941176470588 0.752941176470588 1"/>
+      </material>
+    </visual>
+      <!-- <collision>
+      <origin xyz="0.0 -0.05125 -0.009997" rpy="0.0 0.0 0.0" />
+      <geometry>
+        <sphere radius="0.042" />
+      </geometry>
+    </collision> -->
+  </link>
+  <joint name="right_shoulder_pitch_joint" type="revolute">
+    <origin xyz="0 -0.13 0.295" rpy="0 0 0"/>
+    <parent link="torso_link"/>
+    <child link="right_shoulder_pitch_link"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-2.59" upper="2.59" effort="25" velocity="37" armature="0.003609725" friction="0.0"/>
+  </joint>
+  <link name="right_shoulder_roll_link">
+    <inertial>
+      <origin xyz="0.001887 -0.006195 -0.048572" rpy="0 0 0"/>
+      <mass value="1.305"/>
+      <inertia ixx="0.003809" ixy="8e-06" ixz="7.6e-05" iyy="0.00377" iyz="0.000356" izz="0.000809"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://vd_robot_description/robots/RD02/meshes/right_shoulder_roll_link.STL"/>
+      </geometry>
+      <material name="">
+        <color rgba="0.752941176470588 0.752941176470588 0.752941176470588 1"/>
+      </material>
+    </visual>
+  </link>
+  <joint name="right_shoulder_roll_joint" type="revolute">
+    <origin xyz="0.00015 -0.053 -0.015" rpy="0 0 0"/>
+    <parent link="right_shoulder_pitch_link"/>
+    <child link="right_shoulder_roll_link"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="-2.61" upper="0.52" effort="25" velocity="37" armature="0.003609725" friction="0.0"/>
+  </joint>
+  <link name="right_shoulder_yaw_link">
+    <inertial>
+      <origin xyz="0.00319814263381 0.000224 -0.0224679647388" rpy="0 0 0"/>
+      <mass value="0.2235"/>
+      <inertia ixx="0.000344" ixy="0" ixz="-3.3e-05" iyy="0.000251" iyz="-2e-06" izz="0.000277"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://vd_robot_description/robots/RD02/meshes/right_shoulder_yaw_link.STL"/>
+      </geometry>
+      <material name="">
+        <color rgba="0.752941176470588 0.752941176470588 0.752941176470588 1"/>
+      </material>
+    </visual>
+      <collision>
+      <origin xyz="0.006 0.0 0.05" rpy="0.0 0.0 0.0" />
+      <geometry>
+        <cylinder radius="0.0342" length="0.0392" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="right_shoulder_yaw_joint" type="revolute">
+    <origin xyz="-0.00015 -0.012 -0.132" rpy="0 0 0"/>
+    <parent link="right_shoulder_roll_link"/>
+    <child link="right_shoulder_yaw_link"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="-2.01" upper="2.71" effort="25" velocity="37" armature="0.003609725" friction="0.0"/>
+  </joint>
+  <link name="right_elbow_link">
+    <inertial>
+      <origin xyz="0.034731 -0.001778 -0.006175" rpy="0 0 0"/>
+      <mass value="1.196"/>
+      <inertia ixx="0.000686" ixy="6.9e-05" ixz="-0.000232" iyy="0.002197" iyz="-8e-06" izz="0.00217"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://vd_robot_description/robots/RD02/meshes/right_elbow_link.STL"/>
+      </geometry>
+      <material name="">
+        <color rgba="0.752941176470588 0.752941176470588 0.752941176470588 1"/>
+      </material>
+    </visual>
+      <collision>
+      <origin xyz="0.03316 0.0 -0.006" rpy="0.0 -1.57079632679 0.0" />
+      <geometry>
+        <cylinder radius="0.0318" length="0.0458" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="right_elbow_joint" type="revolute">
+    <origin xyz="0.012 0.00015 -0.052" rpy="0 0 0"/>
+    <parent link="right_shoulder_yaw_link"/>
+    <child link="right_elbow_link"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-0.64" upper="1.84" effort="25" velocity="37" armature="0.003609725" friction="0.0"/>
+  </joint>
+  <link name="right_wrist_roll_link">
+    <inertial>
+      <origin xyz="0.0131696615706 -0.00214417898477 3.4e-05" rpy="0 0 0"/>
+      <mass value="0.1865"/>
+      <inertia ixx="0.000151" ixy="-2e-06" ixz="0" iyy="0.000162" iyz="0" izz="0.000219"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://vd_robot_description/robots/RD02/meshes/right_wrist_roll_link.STL"/>
+      </geometry>
+      <material name="">
+        <color rgba="0.752941176470588 0.752941176470588 0.752941176470588 1"/>
+      </material>
+    </visual>
+  </link>
+  <joint name="right_wrist_roll_joint" type="revolute">
+    <origin xyz="0.103 -0.00015 -0.012" rpy="0 0 0"/>
+    <parent link="right_elbow_link"/>
+    <child link="right_wrist_roll_link"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="-2.31" upper="2.31" effort="25" velocity="37" armature="0.003609725" friction="0.0"/>
+  </joint>
+  <link name="right_wrist_pitch_link">
+    <inertial>
+      <origin xyz="0.0255072647536 0.000814 -0.000812" rpy="0 0 0"/>
+      <mass value="0.733"/>
+      <inertia ixx="0.000277" ixy="-1.4e-05" ixz="-1.4e-05" iyy="0.000759" iyz="0" izz="0.000759"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://vd_robot_description/robots/RD02/meshes/right_wrist_pitch_link.STL"/>
+      </geometry>
+      <material name="">
+        <color rgba="0.752941176470588 0.752941176470588 0.752941176470588 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.0235 5e-05 0.0" rpy="0.0 -1.57079632679 0.0" />
+      <geometry>
+        <cylinder radius="0.0338" length="0.0447" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="right_wrist_pitch_joint" type="revolute">
+    <origin xyz="0.041 0 0" rpy="0 0 0"/>
+    <parent link="right_wrist_roll_link"/>
+    <child link="right_wrist_pitch_link"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-1.57" upper="1.57" effort="10" velocity="22" armature="0.0021812" friction="0.0"/>
+  </joint>
+  <link name="right_hand_link">
+    <inertial>
+      <origin xyz="0.045902 0.000162 0.000603" rpy="0 0 0"/>
+      <mass value="0.6"/>
+      <inertia ixx="0.000157" ixy="-1e-06" ixz="-4e-06" iyy="0.000353" iyz="0" izz="0.000311"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://vd_robot_description/robots/RD02/meshes/right_hand_link.STL"/>
+      </geometry>
+      <material name="">
+        <color rgba="0.752941176470588 0.752941176470588 0.752941176470588 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.0828 0.0 0.0" rpy="0 0 0" />
+      <geometry>
+        <sphere radius="0.0335" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="right_hand_joint" type="revolute">
+    <origin xyz="0.051 0 0" rpy="0 0 0"/>
+    <parent link="right_wrist_pitch_link"/>
+    <child link="right_hand_link"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="-1.57" upper="1.57" effort="10" velocity="22" armature="0.0021812" friction="0.0"/>
+  </joint>
+  <link name="head_link">
+    <inertial>
+      <origin xyz="0.00515860506983826 -0.00125778513896903 0.151366299201516" rpy="0 0 0"/>
+      <mass value="0.926"/>
+      <inertia ixx="0.00284457944686287" ixy="-4.55871981846292E-07" ixz="0.000155322655648846" iyy="0.00215565802311836" iyz="4.10074623458839E-07" izz="0.00226108910743504"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://vd_robot_description/robots/RD02/meshes/head_link.STL"/>
+      </geometry>
+      <material name="">
+        <color rgba="0.752941176470588 0.752941176470588 0.752941176470588 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.0 0 0.1752" rpy="0 0 0"/>
+      <geometry>
+        <sphere radius="0.07185"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="head_joint" type="fixed">
+    <origin xyz="0 0 0.313" rpy="0 0 0"/>
+    <parent link="torso_link"/>
+    <child link="head_link"/>
+    <axis xyz="0 0 0"/>
+    <limit lower="0" upper="0" effort="0" velocity="0"/>
+  </joint>
+</robot>
