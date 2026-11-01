@@ -1,11 +1,12 @@
-"""Display the local RD02 URDF in RViz with optional joint sliders.
+"""Display the installed RD02 URDF in RViz with optional joint sliders.
 
-Run without building a ROS package:
-    ros2 launch /home/minh/quang_ws/launch/rviz.launch.py
+Run after building and sourcing the package:
+    ros2 launch vd_robot_description rviz.launch.py
 """
 
 from pathlib import Path
 
+from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
 from launch.actions import DeclareLaunchArgument
 from launch.conditions import IfCondition, UnlessCondition
@@ -15,15 +16,10 @@ from launch_ros.parameter_descriptions import ParameterValue
 
 
 def generate_launch_description():
-    launch_dir = Path(__file__).resolve().parent
-    robot_dir = launch_dir.parent
+    package_dir = Path(get_package_share_directory('vd_robot_description'))
+    robot_dir = package_dir / 'robots' / 'RD02'
     robot_description = (robot_dir / 'urdf' / 'RD02.urdf').read_text(
         encoding='utf-8'
-    )
-    # This folder is standalone, so resolve the original ROS package URI locally.
-    robot_description = robot_description.replace(
-        'package://vd_robot_description/robots/RD02/meshes/',
-        (robot_dir / 'meshes').as_uri() + '/',
     )
 
     gui = LaunchConfiguration('gui')
@@ -68,7 +64,7 @@ def generate_launch_description():
             executable='rviz2',
             name='rviz2',
             output='screen',
-            arguments=['-d', str(launch_dir / 'rd02.rviz')],
+            arguments=['-d', str(package_dir / 'launch' / 'rd02.rviz')],
             condition=IfCondition(rviz),
         ),
     ])
