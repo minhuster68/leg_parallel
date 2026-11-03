@@ -47,3 +47,20 @@ Các file mô hình, launch và cấu hình RViz nằm trong `description/`;
 `package.xml` và `CMakeLists.txt` nằm ở thư mục gốc package. Khi build,
 launch được cài vào `share/vd_robot_description/launch/`, còn các asset được cài
 vào `share/vd_robot_description/robots/RD02/` để khớp URI sẵn có trong URDF.
+
+## MATLAB / Simulink cho cổ chân trái
+
+Thư mục [`matlab/`](matlab/README.md) có URDF rút gọn từ cẳng chân trái xuống
+bàn chân, ba mesh STL và quỹ đạo pitch–roll `.mat` dài 20 giây.
+Cẳng chân được cố định theo phương trọng lực; chỉ hai khớp cổ chân chuyển động.
+
+Trong MATLAB có Simulink, Simscape và Simscape Multibody:
+
+```matlab
+cd('/home/minh/quang_ws/matlab')
+open_left_ankle
+```
+
+Script sinh model `.slx` xem chuyển động theo quỹ đạo. Dùng
+`open_left_ankle('torque')` để mở model riêng nhận torque trực tiếp tại hai khớp.
+Đây là mô hình pitch–roll từ URDF, chưa gồm các nhánh dẫn động song song M1/M2.

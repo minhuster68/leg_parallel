@@ -1,0 +1,92 @@
+<?xml version='1.0' encoding='utf-8'?>
+<robot name="RD02_left_ankle">
+  <!--Standalone left shank/ankle model. Inertials and ankle geometry copied from description/urdf/RD02.urdf.-->
+  <link name="world" />
+  <joint name="world_to_left_shank" type="fixed">
+    <parent link="world" />
+    <child link="left_knee_link" />
+    <origin xyz="0 0 0.55" rpy="0 0.031735373528457907 0" />
+  </joint>
+  <link name="left_knee_link">
+    <inertial>
+      <origin xyz="0.009182 -0.001385 -0.141761" rpy="0 0 0" />
+      <mass value="2.197" />
+      <inertia ixx="0.017173" ixy="-1.1e-05" ixz="-0.001016" iyy="0.01685" iyz="-0.000126" izz="0.002315" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="../meshes/left_knee_link.STL" />
+      </geometry>
+      <material name="left_knee_link_material_0">
+        <color rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.0125 0.0 -0.145" rpy="0.0 0.0 0.0" />
+      <geometry>
+        <cylinder radius="0.0404" length="0.1979" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="left_ankle_pitch_link">
+    <inertial>
+      <origin xyz="-0.000208 0 -0.0130796491709" rpy="0 0 0" />
+      <mass value="0.066" />
+      <inertia ixx="1.2e-05" ixy="0" ixz="0" iyy="1.4e-05" iyz="0" izz="5e-06" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="../meshes/left_ankle_pitch_link.STL" />
+      </geometry>
+      <material name="left_ankle_pitch_link_material_0">
+        <color rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+      </material>
+    </visual>
+  </link>
+  <link name="left_ankle_roll_link">
+    <inertial>
+      <origin xyz="0.0317456429766 1.8e-05 -0.0162685446523" rpy="0 0 0" />
+      <mass value="0.677" />
+      <inertia ixx="0.000334" ixy="0" ixz="-6.9e-05" iyy="0.001715" iyz="0" izz="0.001785" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="../meshes/left_ankle_roll_link.STL" />
+      </geometry>
+      <material name="left_ankle_roll_link_material_0">
+        <color rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="../meshes/left_ankle_roll_link.STL" scale="1 1 1" />
+      </geometry>
+    </collision>
+    <collision>
+      <origin xyz="0.03787 0 -0.02675" rpy="0 0 0" />
+      <geometry>
+        <box size="0.1476 0.0562 0.0185" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="left_ankle_pitch_joint" type="revolute">
+    <origin xyz="0.01 0 -0.315" rpy="0 0 0" />
+    <parent link="left_knee_link" />
+    <child link="left_ankle_pitch_link" />
+    <axis xyz="0 1 0" />
+    <limit lower="-0.785" upper="0.43" effort="50" velocity="37" />
+    <dynamics damping="0" friction="0" />
+  </joint>
+  <joint name="left_ankle_roll_joint" type="revolute">
+    <origin xyz="0 0 -0.025" rpy="0 0 0" />
+    <parent link="left_ankle_pitch_link" />
+    <child link="left_ankle_roll_link" />
+    <axis xyz="1 0 0" />
+    <limit lower="-0.26" upper="0.26" effort="50" velocity="37" />
+    <dynamics damping="0" friction="0" />
+  </joint>
+</robot>
